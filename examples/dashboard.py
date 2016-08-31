@@ -20,7 +20,7 @@ if __name__ == '__main__':
             for perf in perf_list:
                 outstr = outstr + '%5.2f%%\t' % (100 * perf)
             print outstr
-    '''
+
     print '\nSummary of price changes\n'
     data = s_and_p_historic(1)
     for daydata in data:
@@ -32,7 +32,6 @@ if __name__ == '__main__':
                  'Total Volume: %i \t'         % int(daydata['volume'])
 
     print outstr
-    '''
 
     print '\nS & P Sector Performance\n'
     data = sector_performance(day_ranges)
@@ -60,9 +59,10 @@ if __name__ == '__main__':
     spysma = price_sma_for_symbol('SPY',window_size=spymadays)[0]
 
     spymadelta = 100 * (spylast - spysma) / spysma
-
-    data = sector_performance(22)
+    num_days = 22
+    data = sector_performance(num_days)
     print d0.strftime('As of %d %b, %Y')
     print 'SPY difference from %i moving average: %3.2f%% ' % (spymadays, spymadelta)
+    print '%i-Day Performance' % num_days
     for symbol, perf in data:
         print '%s: %3.2f%%' % (symbol, 100 * perf)

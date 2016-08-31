@@ -9,6 +9,7 @@ import numpy as np
 from pyhoofinance import historicdata as h
 from pyhoofinance.defs import *
 
+from tradingtools.utils import get_sp500_symbol_list
 from tradingtools import technicals as t
 
 def historic_delta_sigma(symbollist, enddate, numdays = 1):
@@ -66,13 +67,6 @@ def historic_delta_sigma(symbollist, enddate, numdays = 1):
     return sigmadata
 
 def s_and_p_historic(nday_range=1):
-    # TODO: get tickers from somewhere else.
-    symbollistfile="/Users/innes213/Documents/workspace/TradingTools/tradingtools/symbol_lists/SandP500.csv"
-
-    f = open(symbollistfile)
-    symbols = f.read().splitlines()
-    f.close()
-
-    return historic_delta_sigma(symbols, date.today(), numdays=nday_range)
+    return historic_delta_sigma(get_sp500_symbol_list(), date.today(), numdays=nday_range)
 
 

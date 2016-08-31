@@ -1,0 +1,2 @@
+# Usage: source .dev_profile
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
