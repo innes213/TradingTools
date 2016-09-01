@@ -1,142 +1,37 @@
 from finsymbols import get_sp500_symbols
 
-class Sectors:
-    CONSUMER_DISCRETIONARY = 'Consumer Discretionary'
-    CONSUMER_STAPLES = 'Consumer Staples'
-    ENERGY = 'Energy'
-    FINANCIALS = 'Financials'
-    HEALTH_CARE = 'Health Care'
-    INDUSTRIALS = 'Industrials'
-    INFORMATION_TECHNOLOGY = 'Information Technology'
-    SEMICONDUCTORS = 'Semiconductors'
-    UTILITIES = 'Utilities'
-
-class Industries:
-    ADVERTISING = 'Advertising'
-    AEROSPACE_AND_DEFENSE = 'Aerospace & Defense'
-    AGRICULTURAL_PRODUCTS = 'Agricultural Products'
-    AIR_FREIGHT_AND_LOGISTICS = 'Air Freight & Logistics'
-    AIRLINES = 'Airlines'
-    ALTERNATIVE_CARRIERS = 'Alternative Carriers'
-    ALUMINUM = 'Aluminum'
-    APPAREL_RETAIL = 'Apparel Retail'
-    APPAREL_ACCESSORIES_AND_LUXURY_GOODS = 'Apparel, Accessories & Luxury Goods'
-    APPLICATION_SOFTWARE = 'Application Software'
-    ASSET_MANAGEMENT_AND_CUSTODY_BANKS = 'Asset Management & Custody Banks'
-    AUTO_PARTS_AND_EQUIPMENT = 'Auto Parts & Equipment'
-    AUTOMOBILE_MANUFACTURERS = 'Automobile Manufacturers'
-    AUTOMOTIVE_RETAIL = 'Automotive Retail'
-    BANKS = 'Banks'
-    BIOTECHNOLOGY = 'Biotechnology'
-    BREWERS = 'Brewers'
-    BROADCASTING_AND_CABLE_TV = 'Broadcasting & Cable TV'
-    BUILDING_PRODUCTS = 'Building Products'
-    CASINOS_AND_GAMING = 'Casinos & Gaming'
-    COMPUTER_AND_ELECTRONICS_RETAIL = 'Computer & Electronics Retail'
-    COMPUTER_HARDWARE = 'Computer Hardware'
-    COMPUTER_STORAGE_AND_PERIPHERALS = 'Computer Storage & Peripherals'
-    CONSTRUCTION_AND_ENGINEERING = 'Construction & Engineering'
-    CONSTRUCTION_AND_FARM_MACHINERY_AND_HEAVY_TRUCKS = 'Construction & Farm Machinery & Heavy Trucks'
-    CONSTRUCTION_MATERIALS = 'Construction Materials'
-    CONSUMER_ELECTRONICS = 'Consumer Electronics'
-    CONSUMER_FINANCE = 'Consumer Finance'
-    DATA_PROCESSING_AND_OUTSOURCED_SERVICES = 'Data Processing & Outsourced Services'
-    DATA_PROCESSING_SERVICES = 'Data Processing Services'
-    DEPARTMENT_STORES = 'Department Stores'
-    DISTILLERS_AND_VINTNERS = 'Distillers & Vintners'
-    DISTRIBUTORS = 'Distributors'
-    DIVERSIFIED_CHEMICALS = 'Diversified Chemicals'
-    DIVERSIFIED_COMMERCIAL_SERVICES = 'Diversified Commercial Services'
-    DIVERSIFIED_FINANCIAL_SERVICES = 'Diversified Financial Services'
-    DIVERSIFIED_METALS_AND_MINING = 'Diversified Metals & Mining'
-    DIVERSIFIED_SUPPORT_SERVICES = 'Diversified Support Services'
-    DRUG_RETAIL = 'Drug Retail'
-    ELECTRIC_UTILITIES = 'Electric Utilities'
-    ELECTRICAL_COMPONENTS_AND_EQUIPMENT = 'Electrical Components & Equipment'
-    ELECTRONIC_EQUIPMENT_AND_INSTRUMENTS = 'Electronic Equipment & Instruments'
-    ENVIRONMENTAL_SERVICES = 'Environmental Services'
-    FERTILIZERS_AND_AGRICULTURAL_CHEMICALS = 'Fertilizers & Agricultural Chemicals'
-    FOOD_DISTRIBUTORS = 'Food Distributors'
-    FOOD_RETAIL = 'Food Retail'
-    GENERAL_MERCHANDISE_STORES = 'General Merchandise Stores'
-    GOLD = 'Gold'
-    HEALTH_CARE_DISTRIBUTION_AND_SERVICES = 'Health Care Distribution & Services'
-    HEALTH_CARE_DISTRIBUTORS_AND_SERVICES = 'Health Care Distributors & Services'
-    HEALTH_CARE_EQUIPMENT = 'Health Care Equipment'
-    HEALTH_CARE_EQUIPMENT_AND_SERVICES = 'Health Care Equipment & Services'
-    HEALTH_CARE_FACILITIES = 'Health Care Facilities'
-    HEALTH_CARE_SUPPLIES = 'Health Care Supplies'
-    HOME_ENTERTAINMENT_SOFTWARE = 'Home Entertainment Software'
-    HOME_FURNISHINGS = 'Home Furnishings'
-    HOME_IMPROVEMENT_RETAIL = 'Home Improvement Retail'
-    HOMEBUILDING = 'Homebuilding'
-    HOTELS_RESORTS_AND_CRUISE_LINES = 'Hotels, Resorts & Cruise Lines'
-    HOUSEHOLD_APPLIANCES = 'Household Appliances'
-    HOUSEHOLD_PRODUCTS = 'Household Products'
-    HOUSEWARES_AND_SPECIALTIES = 'Housewares & Specialties'
-    HUMAN_RESOURCE_AND_EMPLOYMENT_SERVICES = 'Human Resource & Employment Services'
-    HYPERMARKETS_AND_SUPER_CENTERS = 'Hypermarkets & Super Centers'
-    IT_CONSULTING_AND_OTHER_SERVICES = 'IT Consulting & Other Services'
-    IT_CONSULTING_AND_SERVICES = 'IT Consulting & Services'
-    INDEPENDENT_POWER_PRODUCERS_AND_ENERGY_TRADERS = 'Independent Power Producers & Energy Traders'
-    INDUSTRIAL_CONGLOMERATES = 'Industrial Conglomerates'
-    INDUSTRIAL_GASES = 'Industrial Gases'
-    INDUSTRIAL_MACHINERY = 'Industrial Machinery'
-    INDUSTRIAL_MATERIALS = 'Industrial Materials'
-    INSURANCE_BROKERS = 'Insurance Brokers'
-    INTEGRATED_OIL_AND_GAS = 'Integrated Oil & Gas'
-    INTEGRATED_TELECOMMUNICATIONS_SERVICES = 'Integrated Telecommunications Services'
-    INTERNET_RETAIL = 'Internet Retail'
-    INTERNET_SOFTWARE_AND_SERVICES = 'Internet Software & Services'
-    INVESTMENT_BANKING_AND_BROKERAGE = 'Investment Banking & Brokerage'
-    LEISURE_PRODUCTS = 'Leisure Products'
-    LIFE_AND_HEALTH_INSURANCE = 'Life & Health Insurance'
-    LIFE_SCIENCES_TOOLS_AND_SERVICES = 'Life Sciences Tools & Services'
-    MANAGED_HEALTH_CARE = 'Managed Health Care'
-    METAL_AND_GLASS_CONTAINERS = 'Metal & Glass Containers'
-    MOTORCYCLE_MANUFACTURERS = 'Motorcycle Manufacturers'
-    MULTI_SECTOR_HOLDINGS = 'Multi-Sector Holdings'
-    MULTI_LINE_INSURANCE = 'Multi-line Insurance'
-    MULTIUTILITIES = 'MultiUtilities'
-    NETWORKING_EQUIPMENT = 'Networking Equipment'
-    OFFICE_REITS = 'Office REITs'
-    OIL_AND_GAS_DRILLING = 'Oil & Gas Drilling'
-    OIL_AND_GAS_EQUIPMENT_AND_SERVICES = 'Oil & Gas Equipment & Services'
-    OIL_AND_GAS_EXPLORATION_AND_PRODUCTION = 'Oil & Gas Exploration & Production'
-    OIL_AND_GAS_REFINING_AND_MARKETING_AND_TRANSPORTATION = 'Oil & Gas Refining & Marketing & Transportation'
-    PACKAGED_FOODS_AND_MEATS = 'Packaged Foods & Meats'
-    PAPER_PACKAGING = 'Paper Packaging'
-    PAPER_PRODUCTS = 'Paper Products'
-    PERSONAL_PRODUCTS = 'Personal Products'
-    PHARMACEUTICALS = 'Pharmaceuticals'
-    PROPERTY_AND_CASUALTY_INSURANCE = 'Property & Casualty Insurance'
-    PUBLISHING = 'Publishing'
-    REITS = 'REITs'
-    RAILROADS = 'Railroads'
-    REAL_ESTATE_SERVICES = 'Real Estate Services'
-    RESEARCH_AND_CONSULTING_SERVICES = 'Research & Consulting Services'
-    RESIDENTIAL_REITS = 'Residential REITs'
-    RESTAURANTS = 'Restaurants'
-    RETAIL_REITS = 'Retail REITs'
-    SEMICONDUCTOR_EQUIPMENT = 'Semiconductor Equipment'
-    SEMICONDUCTORS = 'Semiconductors'
-    SOFT_DRINKS = 'Soft Drinks'
-    SPECIALIZED_REITS = 'Specialized REITs'
-    SPECIALTY_CHEMICALS = 'Specialty Chemicals'
-    SPECIALTY_RETAIL = 'Specialty Retail'
-    SPECIALTY_STORES = 'Specialty Stores'
-    STEEL = 'Steel'
-    SYSTEMS_SOFTWARE = 'Systems Software'
-    TECHNOLOGY_HARDWARE_STORAGE_AND_PERIPHERALS = 'Technology Hardware, Storage & Peripherals'
-    TECHNOLOGY_HARDWARE_SOFTWARE_AND_SUPPLIES = 'Technology, Hardware, Software and Supplies'
-    TELECOMMUNICATIONS_EQUIPMENT = 'Telecommunications Equipment'
-    THRIFTS_AND_MORTGAGE_FINANCE = 'Thrifts & Mortgage Finance'
-    TIRES_AND_RUBBER = 'Tires & Rubber'
-    TOBACCO = 'Tobacco'
-    TRADING_COMPANIES_AND_DISTRIBUTORS = 'Trading Companies & Distributors'
-    TRUCKING = 'Trucking'
-    WATER_UTILITIES = 'Water Utilities'
+class FinSymbolsKeys:
+    SYMBOL = 'symbol'
+    INDUSTRY = 'industry'
+    HEADQUARTERS = 'headquarters'
+    SECTOR = 'sector'
+    COMPANY = 'company'
 
 def get_sp500_symbol_list():
-    return [s['symbol'] for s in get_sp500_symbols()]
+    return [s[FinSymbolsKeys.SYMBOL] for s in get_sp500_symbols()]
 
+def get_sp500_symbols_by_industry():
+    return get_sp500_symbols_by_key(FinSymbolsKeys.INDUSTRY)
+
+def get_sp500_symbols_by_sector():
+    return get_sp500_symbols_by_key(FinSymbolsKeys.SECTOR)
+
+def get_sp500_symbols_by_region():
+    return get_sp500_symbols_by_key(FinSymbolsKeys.HEADQUARTERS)
+
+def get_sp500_symbols_by_key(key):
+    key_set = {}
+    symbols = get_sp500_symbols()
+    for s in symbols:
+        # if key is Headquarters, strip off ciry and only look at state/country
+        if key == FinSymbolsKeys.HEADQUARTERS:
+            new_key = s[key].split(',')[-1].strip()
+        else:
+            new_key = s[key]
+        if new_key not in key_set:
+            key_set[new_key] = []
+        # add symbol to key list
+        key_set[new_key].append(s[FinSymbolsKeys.SYMBOL])
+
+    # return list of tuples
+    return [(k, key_set[k]) for k in key_set]
