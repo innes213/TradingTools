@@ -23,9 +23,9 @@ def get_sp500_symbols_by_key(key):
     key_set = {}
     symbols = get_sp500_symbols()
     for s in symbols:
-        # if key is Headquarters, strip off ciry and only look at state/country
+        # if key is `Headquarters`, strip off ciry and only look at state/country
         if key == FinSymbolsKeys.HEADQUARTERS:
-            new_key = s[key].split(',')[-1].strip()
+            new_key = s[key].split(',')[-1].strip().split('[')[0]
         else:
             new_key = s[key]
         if new_key not in key_set:
