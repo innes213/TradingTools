@@ -10,7 +10,7 @@ for state,symbols in get_sp500_symbols_by_region():
             sum = sum + quote[MARKET_CAPITALIZATION_STR]
     out.append((state, sum))
     out.sort(key=lambda tup: tup[1], reverse=True)
-    i = 1
+i = 1
 for state, cap in out:
     print '%i. %s: $%4.2fB' % (i, state, cap/1000000000.0)
     i = i + 1
