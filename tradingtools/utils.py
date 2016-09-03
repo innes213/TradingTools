@@ -26,6 +26,15 @@ def get_sp500_symbols_by_key(key):
         # if key is `Headquarters`, strip off ciry and only look at state/country
         if key == FinSymbolsKeys.HEADQUARTERS:
             new_key = s[key].split(',')[-1].strip().split('[')[0]
+            # handle Wikipedioa inconsistencies
+            if new_key == 'UT':
+                new_key = 'Utah'
+            else:
+                if new_key == 'UK':
+                    new_key = 'United Kingdom'
+                else:
+                    if new_key == 'Netherlands':
+                        new_key = 'Kingdom of the Netherlands'
         else:
             new_key = s[key]
         if new_key not in key_set:
