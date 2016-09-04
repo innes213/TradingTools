@@ -1,4 +1,9 @@
-from finsymbols import get_sp500_symbols
+from finsymbols import get_nasdaq_symbols, get_nyse_symbols, get_sp500_symbols
+
+class SymbolList:
+    SP500 = 'sp500'
+    NASDAQ = 'nasdaq' #  sector and industry data are bad
+    NYSE = 'nyse'
 
 class FinSymbolsKeys:
     SYMBOL = 'symbol'
@@ -7,34 +12,29 @@ class FinSymbolsKeys:
     SECTOR = 'sector'
     COMPANY = 'company'
 
-def get_sp500_symbol_list():
-    return [s[FinSymbolsKeys.SYMBOL] for s in get_sp500_symbols()]
+def get_company_data(source):
+    dispatch = { SymbolList.NASDAQ: get_nasdaq_symbols,
+                SymbolList.SP500: get_sp500_symbols,
+                SymbolList.NYSE: get_nyse_symbols }
+    return dispatch[source]()
 
-def get_sp500_symbols_by_industry():
-    return get_sp500_symbols_by_key(FinSymbolsKeys.INDUSTRY)
+def get_symbol_list(source):
+    return [s[FinSymbolsKeys.SYMBOL] for s in get_company_data(source)]
 
-def get_sp500_symbols_by_sector():
-    return get_sp500_symbols_by_key(FinSymbolsKeys.SECTOR)
-
-def get_sp500_symbols_by_region():
-    return get_sp500_symbols_by_key(FinSymbolsKeys.HEADQUARTERS)
-
-def get_sp500_symbols_by_key(key):
+def get_symbols_by_key(key, source=SymbolList.SP500):
     key_set = {}
-    symbols = get_sp500_symbols()
-    for s in symbols:
+    companies = get_company_data(source)
+    for s in companies:
         # if key is `Headquarters`, strip off ciry and only look at state/country
         if key == FinSymbolsKeys.HEADQUARTERS:
             new_key = s[key].split(',')[-1].strip().split('[')[0]
             # handle Wikipedioa inconsistencies
             if new_key == 'UT':
                 new_key = 'Utah'
-            else:
-                if new_key == 'UK':
-                    new_key = 'United Kingdom'
-                else:
-                    if new_key == 'Netherlands':
-                        new_key = 'Kingdom of the Netherlands'
+            elif new_key == 'UK':
+                new_key = 'United Kingdom'
+            elif new_key == 'Netherlands':
+                new_key = 'Kingdom of the Netherlands'
         else:
             new_key = s[key]
         if new_key not in key_set:

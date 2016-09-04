@@ -9,7 +9,7 @@ import numpy as np
 from pyhoofinance import historicdata as h
 from pyhoofinance.defs import *
 
-from tradingtools.utils import get_sp500_symbol_list
+from tradingtools.utils import SymbolList, get_symbol_list
 from tradingtools import technicals as t
 
 def historic_delta_sigma(symbollist, enddate, numdays = 1):
@@ -67,6 +67,6 @@ def historic_delta_sigma(symbollist, enddate, numdays = 1):
     return sigmadata
 
 def s_and_p_historic(nday_range=1):
-    return historic_delta_sigma(get_sp500_symbol_list(), date.today(), numdays=nday_range)
+    return historic_delta_sigma(get_symbol_list(SymbolList.SP500), date.today(), numdays=nday_range)
 
 

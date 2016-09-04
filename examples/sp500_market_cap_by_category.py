@@ -1,4 +1,4 @@
-from tradingtools.utils import FinSymbolsKeys, get_sp500_symbol_list, get_sp500_symbols_by_key
+from tradingtools.utils import FinSymbolsKeys, get_symbol_list, get_symbols_by_key, SymbolList
 from pyhoofinance.quotedata import get_quotes
 from pyhoofinance.defs import *
 
@@ -6,12 +6,12 @@ def sp500_market_cap_by_category(category):
     quote_data = {}
 
     # fromat S&P 500 data as a single dictionary
-    for q in get_quotes(get_sp500_symbol_list(), [MARKET_CAPITALIZATION_STR]):
+    for q in get_quotes(get_symbol_list(SymbolList.SP500), [MARKET_CAPITALIZATION_STR]):
         quote_data[q[SYMBOL_STR]] = q[MARKET_CAPITALIZATION_STR]
 
     # build list of catebory: market cap
     out = []
-    for group,symbols in get_sp500_symbols_by_key(category):
+    for group,symbols in get_symbols_by_key(category, SymbolList.SP500):
         # add up the market caps for each symbol in a group
         sum = 0
         for s in symbols:
