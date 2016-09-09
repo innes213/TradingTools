@@ -32,6 +32,34 @@ def price_sma_for_symbol(symbol, num_days=1, window_size=20, enddate=datetime.to
     historic_data = get_number_of_historical_quotes(symbol, num_days + window_size - 1, enddate)
     return sma(_get_last_price_list(historic_data), window_size)
 
+def _calculate_ema(current_value, k, last_ema):
+    return current_value * k + last_ema * (1 - k)
+
+
+def ema(historic_data, window_size=16):
+    if len(historic_data) <= window_size:
+        # todo: make this an exception
+        print 'Not enough data to calulate ema!'
+        return []
+
+    if len(historic_data) < 5 * window_size:
+        print 'Warn: EMA may not have enouugh history to be valid'
+
+    i = 0
+    last_ema = 0
+    ema_data = []
+    k = 2.0 / (window_size + 1)
+    for current_value in historic_data:
+        ema_data.append(_calculate_ema(current_value, k, last_ema))
+        last_ema = ema_data[i]
+        i = i + 1
+
+    return ema_data
+
+def price_ema_for_symbol(symbol, num_days=1, window_size=22, enddate=datetime.today()):
+    historic_data = get_number_of_historical_quotes(symbol, np.max([5 * window_size, window_size + num_days - 1]), enddate)
+    return ema(_get_last_price_list(historic_data))[-num_days]
+
 def performance(historic_data, day_ranges=1):
     """
     Calculates the performance (most recent - reference)/reference
