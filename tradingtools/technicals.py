@@ -42,7 +42,7 @@ def ema(historic_data, window_size=16):
         print 'Not enough data to calulate ema!'
         return []
 
-    if len(historic_data) < 5 * window_size:
+    if len(historic_data) < 6 * window_size:
         print 'Warn: EMA may not have enouugh history to be valid'
 
     i = 0
@@ -58,7 +58,19 @@ def ema(historic_data, window_size=16):
 
 def price_ema_for_symbol(symbol, num_days=1, window_size=22, enddate=datetime.today()):
     historic_data = get_number_of_historical_quotes(symbol, np.max([5 * window_size, window_size + num_days - 1]), enddate)
-    return ema(_get_last_price_list(historic_data))[-num_days]
+    return ema(_get_last_price_list(historic_data))[-num_days:]
+
+def macd(historic_data, slow_window=26, fast_window=12, signal_window=9):
+    delta = np.subtract(ema(historic_data, fast_window), ema(historic_data, slow_window))
+    signal = ema(delta, signal_window)
+    histogram = np.subtract(delta, signal)
+    return delta, signal, histogram
+
+def price_macd_for_symbol(symbol, num_days=1, slow_window=26, fast_window=12, signal_window=9, enddate=datetime.today()):
+    historic_data = get_number_of_historical_quotes(symbol, np.max([6 * slow_window, slow_window + num_days - 1]), enddate)
+    price_data = _get_last_price_list(historic_data)
+    delta, signal, histogram = macd(price_data, slow_window, fast_window, signal_window)
+    return delta[-num_days:], signal[-num_days:], histogram[-num_days:]
 
 def performance(historic_data, day_ranges=1):
     """
