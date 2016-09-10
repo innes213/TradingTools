@@ -1,7 +1,7 @@
 from tradingtools.market_metrics.market_cap_index_performance import market_cap_index_performance
 from tradingtools.market_metrics.historic_change_and_stdv import s_and_p_historic
 from tradingtools.market_metrics.sector_performance import sector_performance
-from tradingtools.technicals import price_sma_for_symbol
+from tradingtools.technicals import sma_for_symbol
 from pyhoofinance.defs import *
 from pyhoofinance.quotedata import get_quote
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     #[TODO: replace number of days with 1 month and 1 year
     # get S&P 500 1 year performance and moving average
     spymadays = 240 # values greater than 36 diverge from yahoo and etrade sma calculations
-    spysma = price_sma_for_symbol('SPY',window_size=spymadays)[0]
+    spysma = sma_for_symbol('SPY',window_size=spymadays)[0]
 
     spymadelta = 100 * (spylast - spysma) / spysma
     num_days = 22
