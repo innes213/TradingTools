@@ -117,6 +117,42 @@ def performance(data, day_ranges=1):
         return (data[-1] - data[-(day_ranges + 1)]) / data[-(day_ranges + 1)]
     return [(data[-1] - data[-(n+1)])/data[-(n + 1)] for n in day_ranges]
 
+def on_balance_volume():
+    pass
+
+def on_balance_volume_for_symbol():
+    pass
+
+def accumulation_distribution():
+    pass
+
+def accumulation_distribution_for_symbol():
+    pass
+
+def average_directional_index():
+    pass
+
+def average_directional_index_for_symbol():
+    pass
+
+def aroon():
+    pass
+
+def aroon_for_symbol():
+    pass
+
+def rsi():
+    pass
+
+def rsi_for_symbol():
+    pass
+
+def stochastic_oscillator():
+    pass
+
+def stochastic_oscillator_for_symbol():
+    pass
+
 def performance_for_symbol(symbol, day_ranges=1, key=defs.LAST_TRADE_PRICE_ONLY_STR):
     """
     Calculates the price performance of a symbol across one or more day ranges
