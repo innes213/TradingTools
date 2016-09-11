@@ -1,13 +1,11 @@
-from tradingtools.technicals import ema, sma, macd, macd_for_symbol
+from tradingtools.technicals import ema_for_symbol, \
+    sma_for_symbol, \
+    macd_for_symbol, \
+    on_balance_volume_for_symbol
 
-data = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-data = data + data + data + data + data + data + data + data + data + data
-data = data + [10, 20, 30]
-print 'SMA: ', str(sma(data, 22)[-10:])
-print 'EMA: ', str(ema(data, 22)[-10:])
-m,s,h = macd(data)
-print 'MACD: ', str(m[-10:])
-print 'Signal: ', str(s[-10:])
-print 'Historgram', str(h[-10:])
-print 'MACD for GOOGL:', str(macd_for_symbol('GOOGL', num_days=1))
-
+num_days = 2
+window_size = 10
+print 'SMA for GOOGL: ', str(sma_for_symbol('GOOGL', num_days=num_days, window_size=window_size))
+print 'EMA for GOOGL: ', str(ema_for_symbol('GOOGL', num_days=num_days, window_size=window_size))
+print 'MACD for GOOGL: ', str(macd_for_symbol('GOOGL', num_days=num_days))
+print 'OBV for GOOGL: ', str(on_balance_volume_for_symbol('GOOGL', num_days=num_days))

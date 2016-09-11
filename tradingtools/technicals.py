@@ -73,7 +73,8 @@ def ema_for_symbol(symbol, num_days=1, window_size=22, enddate=datetime.today(),
     :return: List of Floats
     """
     historic_data = get_number_of_historical_quotes(symbol, 5 * window_size + num_days, enddate)
-    return ema(_get_data_by_key(historic_data, key))[-num_days:]
+    print len(historic_data)
+    return ema(_get_data_by_key(historic_data, key), window_size)[-num_days:]
 
 def macd(historic_data, slow_window=26, fast_window=12, signal_window=9):
     """
@@ -117,11 +118,32 @@ def performance(data, day_ranges=1):
         return (data[-1] - data[-(day_ranges + 1)]) / data[-(day_ranges + 1)]
     return [(data[-1] - data[-(n+1)])/data[-(n + 1)] for n in day_ranges]
 
-def on_balance_volume():
-    pass
+def on_balance_volume(price_data, volume_data):
+    if len(price_data) != len(volume_data):
+        #todo: throw exception
+        print 'Error: OBV list length mismatch'
+        return []
 
-def on_balance_volume_for_symbol():
-    pass
+    if len(price_data) < 2:
+        #todo: throw exception
+        print "Error: OBV requires data for at least two days"
+        return []
+
+    obv = 0
+    obv_data = []
+    for i in range(1,len(price_data)):
+        if price_data[i] > price_data[i-1]:
+            obv = obv + volume_data[i]
+        elif price_data[i] < price_data[i-1]:
+            obv = obv - volume_data[i]
+        obv_data.append(obv)
+    return obv_data
+
+def on_balance_volume_for_symbol(symbol, num_days=22, enddate=datetime.today()):
+    historic_data = get_number_of_historical_quotes(symbol, num_days + 1, enddate)
+    price_data = _get_data_by_key(historic_data, defs.LAST_TRADE_PRICE_ONLY_STR)
+    volume_data = _get_data_by_key(historic_data, defs.VOLUME_STR)
+    return on_balance_volume(price_data, volume_data)[-num_days:]
 
 def accumulation_distribution():
     pass
