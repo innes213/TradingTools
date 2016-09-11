@@ -73,7 +73,6 @@ def ema_for_symbol(symbol, num_days=1, window_size=22, enddate=datetime.today(),
     :return: List of Floats
     """
     historic_data = get_number_of_historical_quotes(symbol, 5 * window_size + num_days, enddate)
-    print len(historic_data)
     return ema(_get_data_by_key(historic_data, key), window_size)[-num_days:]
 
 def macd(historic_data, slow_window=26, fast_window=12, signal_window=9):
@@ -145,28 +144,59 @@ def on_balance_volume_for_symbol(symbol, num_days=22, enddate=datetime.today()):
     volume_data = _get_data_by_key(historic_data, defs.VOLUME_STR)
     return on_balance_volume(price_data, volume_data)[-num_days:]
 
-def accumulation_distribution():
-    pass
+def accumulation_distribution(high_data, low_data, close_data, volume_data):
+    """
+    Accumulation/Distribution AKA Money Flow Index
+    :param high_data:
+    :param low_data:
+    :param close_data:
+    :param volume_data:
+    :return:
+    """
+    if (len(high_data) - len(low_data)) + (len(close_data) - len(volume_data)) != 0:
+        #todo: throw exception
+        print 'Error: Accumulation/Distribution data length mismatch'
+        return []
 
-def accumulation_distribution_for_symbol():
-    pass
+    # calculate money flow multiplier
+    close_minus_low = np.subtract(close_data, low_data)
+    high_minus_close = np.subtract(high_data, close_data)
+    high_minus_low = np.subtract(high_data, low_data)
+    cml_minus_hmc = np.subtract(close_minus_low, high_minus_close)
+    mfm = np.divide(cml_minus_hmc, high_minus_low)
+    # return money flow multiplier by volume
+    ad = np.multiply(mfm, volume_data)
+    sum = 0
+    for i in range(0, len(ad)):
+        ad[i] = ad[i] + sum
+        sum = sum + ad[i]
+
+    return ad
+
+def accumulation_distribution_for_symbol(symbol, num_days=22, enddate=datetime.today()):
+    historic_data = get_number_of_historical_quotes(symbol, num_days, enddate)
+    high_data = _get_data_by_key(historic_data, defs.DAY_HIGH_STR)
+    low_data = _get_data_by_key(historic_data, defs.DAY_LOW_STR)
+    close_data = _get_data_by_key(historic_data, defs.LAST_TRADE_PRICE_ONLY_STR)
+    volume_data = _get_data_by_key(historic_data, defs.VOLUME_STR)
+    return accumulation_distribution(high_data, low_data, close_data, volume_data)
 
 def average_directional_index():
     pass
 
-def average_directional_index_for_symbol():
+def average_directional_index_for_symbol(symbol, num_days=22, enddate=datetime.today()):
     pass
 
 def aroon():
     pass
 
-def aroon_for_symbol():
+def aroon_for_symbol(symbol, num_days=22, enddate=datetime.today()):
     pass
 
 def rsi():
     pass
 
-def rsi_for_symbol():
+def rsi_for_symbol(symbol, num_days=22, enddate=datetime.today()):
     pass
 
 def stochastic_oscillator():
