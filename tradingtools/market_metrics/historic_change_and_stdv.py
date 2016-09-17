@@ -3,14 +3,13 @@ Created on July 3, 2016
 
 @author: Rob Innes Hislop
 '''
+from tradingtools.utils import SymbolList, get_symbol_list
 
-from datetime import date
 import numpy as np
 from pyhoofinance import historicdata as h
 from pyhoofinance.defs import *
 
-from tradingtools.utils import SymbolList, get_symbol_list
-from tradingtools import technicals as t
+from datetime import date
 
 def historic_delta_sigma(symbollist, enddate, numdays = 1):
     """

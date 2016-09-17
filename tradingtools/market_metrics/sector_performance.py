@@ -1,6 +1,6 @@
-from tradingtools.technicals import performance_for_symbol
-
 from operator import itemgetter
+
+from tradingtools.analysis.basic import performance_for_symbol
 
 def sector_performance(day_ranges=1):
     sp_sector_symbols = ['XLK', 'XLB', 'XLV', 'XLF', 'XLI','XLY', 'XLP', 'XLU', 'XLE']

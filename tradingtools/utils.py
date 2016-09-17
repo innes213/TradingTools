@@ -1,4 +1,7 @@
 from finsymbols import get_nasdaq_symbols, get_nyse_symbols, get_sp500_symbols
+from pyhoofinance.historicdata import get_number_of_historical_quotes
+
+from datetime import datetime
 
 class SymbolList:
     SP500 = 'sp500'
@@ -44,3 +47,9 @@ def get_symbols_by_key(key, source=SymbolList.SP500):
 
     # return list of tuples
     return [(k, key_set[k]) for k in key_set]
+
+def get_historic_data_for_symbol(symbol, num_days, enddate=datetime.today(), key=None):
+    data = get_number_of_historical_quotes(symbol, num_days, enddate)
+    if key is not None:
+        data = [x[key] for x in data]
+    return data

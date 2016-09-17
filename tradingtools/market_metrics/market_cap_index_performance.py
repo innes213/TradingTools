@@ -4,7 +4,7 @@ Created on July 3, 2016
 @author: Rob Innes Hislop
 '''
 
-from ..technicals import performance_for_symbol
+from tradingtools.analysis.basic import performance_for_symbol
 
 def market_cap_index_performance(dayranges=[1]):
     """
