@@ -1,10 +1,12 @@
 from  ..indicators import Indicator
 
 from pyhoofinance.defs import *
+from numpy import subtract as nsubtract
+from numpy import sum as nsum
 
 from datetime import datetime
 
-WINDOW_SIZE = 20
+WINDOW_SIZE = 14
 NUM_PERIODS = 1
 
 class RSI(Indicator):
@@ -16,21 +18,49 @@ class RSI(Indicator):
     _description_url = 'http://www.investopedia.com/terms/a/adx.asp'
 
     def window(self, window_size=None):
-        if window_size is not None:
-            if window_size > 0:
+        if window_size is not None and window_size > 0:
                 self._window_size = window_size
         else:
             return self._window_size
 
-    def calculate(self, historic_data):
-        pass
+    def _calculate_avg_gains_and_losses(self, gain_data):
+        # Create gain and loss vectos
+        gains = []
+        losses = []
+        for x in gain_data:
+            if x > 0:
+                gains.append(x)
+                losses.append(0)
+            elif x < 0:
+                gains.append(0)
+                losses.append(-x)
+            else:
+                gains.append(0)
+                losses.append(0)
+        # calculate avg gains and losses per Wiley
+        avg_gains = [nsum(gains[0:self._window_size]) / self._window_size]
+        avg_losses = [nsum(losses[0:self._window_size]) / self._window_size]
+        gains = gains[self._window_size:]
+        losses = losses[self._window_size:]
+        for n in range(0, len(gains)):
+            avg_gains.append((avg_gains[n] * (self._window_size - 1) + gains[n]) / self._window_size)
+            avg_losses.append((avg_losses[n] * (self._window_size - 1) + losses[n]) / self._window_size)
+        return avg_gains, avg_losses
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
-        """
-        Simple moving average across day_range days for numdays
-        :param symbol: String Stock symbol for which to calculare SMA
-        :param end_date: Date most recent date over which to calculate
-        :param key: String key in historic data for which to calculate sma
-        :return: List of floats
-        """
-        return self.calculate(self._data_for_symbol(symbol, self._num_periods + self._window_size - 1, end_date, key))
+    def calculate(self, gain_data):
+        if len(gain_data) < self._window_size:
+            #todo: throw exception
+            print "RSI Error: Data length less than window size"
+            return []
+        avg_gains, avg_losses = self._calculate_avg_gains_and_losses(gain_data)
+        rsi = []
+        for n in range(0, len(avg_losses)):
+            if avg_losses[n] == 0:
+                rsi.append(100.0)
+            else:
+                rsi.append(100.0 - 100.0 / (1.0 + avg_gains[n] / avg_losses[n]))
+        return rsi
+
+    def calculate_for_symbol(self, symbol, end_date=datetime.today()):
+        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 250, end_date, key=LAST_TRADE_PRICE_ONLY_STR)
+        return self.calculate(nsubtract(data[1:], data[0:-1]))[-self._num_periods:]

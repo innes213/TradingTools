@@ -48,7 +48,6 @@ class Stochastic(Indicator):
             print 'Error: Stochastic data length mismatch'
             return []
         k = []
-        print len(high_data)
         for n in range(0, len(high_data) - self._window_size):
             close = close_data[n+self._window_size]
             high = max(high_data[n:n+self._window_size])
