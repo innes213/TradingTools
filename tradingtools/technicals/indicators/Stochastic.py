@@ -19,6 +19,7 @@ class Stochastic(Indicator):
         self._num_periods = num_periods
         self._smoothing_window_size = smoothing_window_size
 
+    _title = 'Stochastic Oscillator'
     _description_url = 'http://www.investopedia.com/terms/s/stochasticoscillator.asp'
 
     def window(self, window_size=None, smoothing_window_size=None):
@@ -53,7 +54,7 @@ class Stochastic(Indicator):
             high = max(high_data[n:n+self._window_size])
             low = min(low_data[n:n+self._window_size])
             k.append(100 * (close - low) / (high - low))
-        return k[-self._num_periods:], SMA(window_size=self._smoothing_window_size).calculate(k)
+        return k, SMA(window_size=self._smoothing_window_size).calculate(k)
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
         """
@@ -66,4 +67,5 @@ class Stochastic(Indicator):
         high_data = [x[DAY_HIGH_STR] for x in data]
         low_data = [x[DAY_LOW_STR] for x in data]
         close_data = [x[LAST_TRADE_PRICE_ONLY_STR] for x in data]
-        return self.calculate(high_data, low_data, close_data)
+        k, d = self.calculate(high_data, low_data, close_data)
+        return k[-self._num_periods:], d[-self._num_periods:]

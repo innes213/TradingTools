@@ -18,9 +18,11 @@ NUM_PERIODS = 1
 class ADX(Indicator):
 
     def __init__(self, num_periods=NUM_PERIODS, window_size=WINDOW_SIZE):
+        super(ADX, self).__init__()
         self._window_size = window_size
         self._num_periods = num_periods
 
+    _title = 'Average Direction Index'
     _description_url = 'http://www.investopedia.com/terms/a/adx.asp'
 
     def window(self, window_size=None):

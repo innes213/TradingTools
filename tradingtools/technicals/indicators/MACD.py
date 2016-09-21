@@ -19,6 +19,9 @@ class MACD(Indicator):
         self._signal_window_size = signal_window_size
         self._num_periods = num_periods
 
+    _title = 'Moving Average Convergence/Divergence'
+    _description_url = 'http://www.investopedia.com/terms/m/macd.asp'
+
     def window(self, slow_window_size=None, fast_window_size=None, signal_window_size=None):
         """
         Sets or returns the MACD window sizes (slow, fast and signal)
@@ -62,5 +65,3 @@ class MACD(Indicator):
         historic_data = self._data_for_symbol(symbol, 5 * self._slow_window_size + self._num_periods, end_date, key)
         macd, signal, histogram = self.calculate(historic_data)
         return macd[-self._num_periods:], signal[-self._num_periods:], histogram[-self._num_periods:]
-
-    _description_url = 'http://www.investopedia.com/terms/m/macd.asp'

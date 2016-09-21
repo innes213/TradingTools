@@ -4,13 +4,14 @@ from pyhoofinance.defs import *
 
 from datetime import datetime
 
-NUM_PERIODS = 20
+NUM_PERIODS = 2
 
 class OBV(Indicator):
 
     def __init__(self, num_periods=NUM_PERIODS):
         self._num_periods = num_periods
 
+    _title = 'On-BalanceVolume'
     _description_url = 'http://www.investopedia.com/terms/o/onbalancevolume.asp'
 
     def calculate(self, price_data, volume_data):

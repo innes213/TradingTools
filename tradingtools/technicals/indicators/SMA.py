@@ -14,6 +14,7 @@ class SMA(Indicator):
         self._window_size = window_size
         self._num_periods = num_periods
 
+    _title = 'Simple Moving Average'
     _description_url = 'http://www.investopedia.com/terms/s/sma.asp'
 
     def window(self, window_size=None):

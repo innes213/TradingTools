@@ -15,7 +15,8 @@ class RSI(Indicator):
         self._window_size = window_size
         self._num_periods = num_periods
 
-    _description_url = 'http://www.investopedia.com/terms/a/adx.asp'
+    _title = 'Relative Strength Index'
+    _description_url = 'http://www.investopedia.com/terms/r/rsi.asp'
 
     def window(self, window_size=None):
         if window_size is not None and window_size > 0:

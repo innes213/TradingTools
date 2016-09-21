@@ -6,14 +6,16 @@ from pyhoofinance.defs import *
 from datetime import datetime
 
 WINDOW_SIZE = 20
-NUM_PERIODS = 5
+NUM_PERIODS = 1
 
 class Aroon(Indicator):
 
     def __init__(self, num_periods=NUM_PERIODS, window_size=WINDOW_SIZE):
+        super(Aroon, self).__init__()
         self._num_periods = num_periods
         self._window_size = window_size
 
+    _title = 'Aroon'
     _description_url = 'http://www.investopedia.com/terms/a/aroon.asp'
 
     def window(self, window_size=None):

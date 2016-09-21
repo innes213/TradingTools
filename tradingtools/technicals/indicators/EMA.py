@@ -10,9 +10,11 @@ NUM_PERIODS = 1
 class EMA(Indicator):
 
     def __init__(self, num_periods=NUM_PERIODS, window_size=WINDOW_SIZE):
+        super(EMA, self).__init__()
         self._window_size = window_size
         self._num_periods = num_periods
 
+    _title = 'Exponential Moving Average'
     _description_url = 'http://www.investopedia.com/terms/e/ema.asp'
 
     def window(self, window_size=None):
@@ -47,7 +49,6 @@ class EMA(Indicator):
             ema_data.append(self._calculate_ema(current_value, k, last_ema))
             last_ema = ema_data[i]
             i = i + 1
-
         return ema_data
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):

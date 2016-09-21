@@ -12,8 +12,10 @@ NUM_PERIODS = 10
 class AD(Indicator):
 
     def __init__(self, num_periods=NUM_PERIODS):
+        super(AD, self).__init__()
         self._num_periods = num_periods
 
+    _title = 'Accumulation/Distribution'
     _description_url = 'http://www.investopedia.com/terms/a/accumulationdistribution.asp'
 
     def window(self, window_size=None):
@@ -49,7 +51,6 @@ class AD(Indicator):
         for i in range(0, len(ad)):
             ad[i] = ad[i] + sum
             sum = sum + ad[i]
-
         return ad
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):

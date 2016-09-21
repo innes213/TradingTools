@@ -5,10 +5,12 @@ from pyhoofinance.defs import *
 from datetime import datetime
 
 class Indicator(object):
-    _description_url = 'http://www.investopedia.com'
 
     def __init__(self):
         pass
+
+    _title = 'Indicator'
+    _description_url = 'http://www.investopedia.com'
 
     def periods(self, num_periods=None):
         if num_periods is not None:
@@ -24,6 +26,10 @@ class Indicator(object):
     def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=None):
         # Override with retrieval of stock data and call self.calculate
         pass
+
+    def info(self):
+        print self._title
+        print 'For more info, see: %s' % self._description_url
 
     def _data_for_symbol(self, symbol, num_periods, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
         return get_historic_data_for_symbol(symbol, num_periods, end_date, key)
