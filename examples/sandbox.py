@@ -1,4 +1,5 @@
 from tradingtools.technicals.indicators.AD import AD
+from tradingtools.technicals.indicators.ADX import ADX
 from tradingtools.technicals.indicators.Aroon import Aroon
 from tradingtools.technicals.indicators.EMA import EMA
 from tradingtools.technicals.indicators.MACD import MACD
@@ -15,3 +16,4 @@ print 'Default A/D for GOOGL', str(AD().calculate_for_symbol('GOOGL'))
 print 'Default Aroon for GOOGL', str(Aroon().calculate_for_symbol('GOOGL'))
 print 'Default Stochastic for GOOGL', str(Stochastic().calculate_for_symbol('GOOGL'))
 print 'Default RSI for GOOGL', str(RSI().calculate_for_symbol('GOOGL'))
+print 'Default ADX for GOOGL', str(ADX().calculate_for_symbol('GOOGL'))
