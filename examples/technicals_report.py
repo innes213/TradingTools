@@ -1,0 +1,18 @@
+from tradingtools.technicals.indicators.AD import AD
+from tradingtools.technicals.indicators.ADX import ADX
+from tradingtools.technicals.indicators.Aroon import Aroon
+from tradingtools.technicals.indicators.EMA import EMA
+from tradingtools.technicals.indicators.MACD import MACD
+from tradingtools.technicals.indicators.OBV import OBV
+from tradingtools.technicals.indicators.RSI import RSI
+from tradingtools.technicals.indicators.SMA import SMA
+from tradingtools.technicals.indicators.Stochastic import Stochastic
+
+symbols = ['SPY', 'GLD', 'AAPL', 'P', 'FB', 'ONVO']
+indicators = [SMA(), EMA(), MACD(num_periods=2), OBV(), AD(), Aroon(), Stochastic(), RSI(), ADX()]
+
+for symbol in symbols:
+    print '\nTechnical Indicators for %s\n' % symbol
+    for i in indicators:
+        #todo: change Indicator.info() to return title string instead of using Indicator._itile
+        print '%s for %s = %s' % (i._title, symbol, str(i.calculate_for_symbol(symbol)))
