@@ -1,7 +1,7 @@
 from  ..indicators import Indicator
+from ...equitydata import PastQuoteDataKeys
 
 from numpy import max, min
-from pyhoofinance.defs import *
 
 from datetime import datetime
 
@@ -49,7 +49,7 @@ class Aroon(Indicator):
             aroon_down.append(100.0 * min_index / self._window_size)
         return aroon_up, aroon_down
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
+    def calculate_for_symbol(self, symbol, end_date=datetime.today()):
         """
         Calculates Aroon for
         :param symbol: String Stock symbol for which to calculare SMA
@@ -58,6 +58,6 @@ class Aroon(Indicator):
         :return: Tuple consisting of 2 lists (aroon_up, aroon_down)
         """
         data = self._data_for_symbol(symbol, self._num_periods + self._window_size, end_date, key=None)
-        high_data = [x[DAY_HIGH_STR] for x in data]
-        low_data = [x[DAY_LOW_STR] for x in data]
+        high_data = [x[PastQuoteDataKeys.HIGH] for x in data]
+        low_data = [x[PastQuoteDataKeys.LOW] for x in data]
         return self.calculate(high_data, low_data)

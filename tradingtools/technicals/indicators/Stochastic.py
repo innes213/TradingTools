@@ -1,10 +1,8 @@
-from  ..indicators import Indicator
+from ..indicators import Indicator
 from ..indicators.SMA import SMA
+from ...equitydata import PastQuoteDataKeys
 
-from numpy import max
-from numpy import min
-
-from pyhoofinance.defs import *
+from numpy import max, min
 
 from datetime import datetime
 
@@ -64,8 +62,8 @@ class Stochastic(Indicator):
         :return: Tuple of %k and %D List of Floats
         """
         data = self._data_for_symbol(symbol, self._num_periods + self._window_size + self._smoothing_window_size - 1, end_date, key=None)
-        high_data = [x[DAY_HIGH_STR] for x in data]
-        low_data = [x[DAY_LOW_STR] for x in data]
-        close_data = [x[LAST_TRADE_PRICE_ONLY_STR] for x in data]
+        high_data = [x[PastQuoteDataKeys.HIGH] for x in data]
+        low_data = [x[PastQuoteDataKeys.LOW] for x in data]
+        close_data = [x[PastQuoteDataKeys.CLOSE] for x in data]
         k, d = self.calculate(high_data, low_data, close_data)
         return k[-self._num_periods:], d[-self._num_periods:]

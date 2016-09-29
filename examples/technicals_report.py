@@ -8,7 +8,7 @@ from tradingtools.technicals.indicators.RSI import RSI
 from tradingtools.technicals.indicators.SMA import SMA
 from tradingtools.technicals.indicators.Stochastic import Stochastic
 
-symbols = ['SPY', 'GLD', 'AAPL', 'P', 'FB', 'ONVO']
+symbols = ['SPY', 'SDS', 'GLD', 'AAPL', 'P', 'FB', 'ONVO', 'DLB']
 indicators = [SMA(), EMA(), MACD(num_periods=2), OBV(), AD(), Aroon(), Stochastic(), RSI(), ADX()]
 
 for symbol in symbols:

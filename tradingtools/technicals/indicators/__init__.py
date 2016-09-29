@@ -1,6 +1,5 @@
 from ...utils import get_historic_data_for_symbol
-
-from pyhoofinance.defs import *
+from ...equitydata import PastQuoteDataKeys
 
 from datetime import datetime
 
@@ -31,7 +30,7 @@ class Indicator(object):
         print self._title
         print 'For more info, see: %s' % self._description_url
 
-    def _data_for_symbol(self, symbol, num_periods, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
+    def _data_for_symbol(self, symbol, num_periods, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
         return get_historic_data_for_symbol(symbol, num_periods, end_date, key)
 
 

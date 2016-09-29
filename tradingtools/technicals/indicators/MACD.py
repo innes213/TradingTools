@@ -1,8 +1,8 @@
 from .EMA import EMA
 from ..indicators import Indicator
+from ...equitydata import PastQuoteDataKeys
 
-from numpy import subtract as nsubtract
-from pyhoofinance.defs import *
+from numpy import subtract
 
 from datetime import datetime
 
@@ -49,12 +49,12 @@ class MACD(Indicator):
         slow_ema = EMA(self._num_periods, self._slow_window_size)
         signal_ema = EMA(self._num_periods, self._signal_window_size)
 
-        macd = nsubtract(fast_ema.calculate(historic_data), slow_ema.calculate(historic_data))
+        macd = subtract(fast_ema.calculate(historic_data), slow_ema.calculate(historic_data))
         signal = signal_ema.calculate(macd)
-        histogram = nsubtract(macd, signal)
+        histogram = subtract(macd, signal)
         return macd, signal, histogram
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
+    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
         """
         MACD (macd, signal and histogram) for a given symbol
         :param symbol: String Stock symbol for which to calculate MACD

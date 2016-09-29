@@ -1,6 +1,5 @@
-from  ..indicators import Indicator
-
-from pyhoofinance.defs import *
+from ..indicators import Indicator
+from ...equitydata import PastQuoteDataKeys
 
 from datetime import datetime
 
@@ -51,7 +50,7 @@ class EMA(Indicator):
             i = i + 1
         return ema_data
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
+    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
         """
         Calculates the EMA for a given symbol for a number of days across a window
         :param symbol: String Stock symbol for which to calculate EMA

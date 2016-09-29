@@ -1,8 +1,7 @@
 from  ..indicators import Indicator
+from ...equitydata import PastQuoteDataKeys
 
-from pyhoofinance.defs import *
-from numpy import subtract as nsubtract
-from numpy import sum as nsum
+from numpy import subtract, sum
 
 from datetime import datetime
 
@@ -39,8 +38,8 @@ class RSI(Indicator):
                 gains.append(0)
                 losses.append(0)
         # calculate avg gains and losses per Wiley
-        avg_gains = [nsum(gains[0:self._window_size]) / self._window_size]
-        avg_losses = [nsum(losses[0:self._window_size]) / self._window_size]
+        avg_gains = [sum(gains[0:self._window_size]) / self._window_size]
+        avg_losses = [sum(losses[0:self._window_size]) / self._window_size]
         gains = gains[self._window_size:]
         losses = losses[self._window_size:]
         for n in range(0, len(gains)):
@@ -63,5 +62,5 @@ class RSI(Indicator):
         return rsi
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
-        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 250, end_date, key=LAST_TRADE_PRICE_ONLY_STR)
-        return self.calculate(nsubtract(data[1:], data[0:-1]))[-self._num_periods:]
+        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 250, end_date, key=PastQuoteDataKeys.CLOSE)
+        return self.calculate(subtract(data[1:], data[0:-1]))[-self._num_periods:]

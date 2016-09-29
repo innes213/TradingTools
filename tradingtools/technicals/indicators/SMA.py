@@ -1,7 +1,7 @@
-from  ..indicators import Indicator
+from ..indicators import Indicator
+from ...equitydata import PastQuoteDataKeys
 
-from pyhoofinance.defs import *
-from numpy import mean as nmean
+from numpy import mean
 
 from datetime import datetime
 
@@ -33,9 +33,9 @@ class SMA(Indicator):
         if len(historic_data) < self._window_size:
             print 'Window size exceeds length of data!'
             return []
-        return [nmean(historic_data[n:n+self._window_size]) for n in range(len(historic_data) - self._window_size + 1)]
+        return [mean(historic_data[n:n+self._window_size]) for n in range(len(historic_data) - self._window_size + 1)]
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=LAST_TRADE_PRICE_ONLY_STR):
+def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
         """
         Simple moving average across day_range days for numdays
         :param symbol: String Stock symbol for which to calculare SMA

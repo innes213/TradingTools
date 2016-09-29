@@ -1,9 +1,7 @@
-from  ..indicators import Indicator
+from ..indicators import Indicator
+from ...equitydata import PastQuoteDataKeys
 
-from pyhoofinance.defs import *
-from numpy import divide as ndivide
-from numpy import multiply as nmultiply
-from numpy import subtract as nsubtract
+from numpy import divide, multiply, subtract
 
 from datetime import datetime
 
@@ -40,13 +38,13 @@ class AD(Indicator):
             return []
 
         # calculate money flow multiplier
-        close_minus_low = nsubtract(close_data, low_data)
-        high_minus_close = nsubtract(high_data, close_data)
-        high_minus_low = nsubtract(high_data, low_data)
-        cml_minus_hmc = nsubtract(close_minus_low, high_minus_close)
-        mfm = ndivide(cml_minus_hmc, high_minus_low)
+        close_minus_low = subtract(close_data, low_data)
+        high_minus_close = subtract(high_data, close_data)
+        high_minus_low = subtract(high_data, low_data)
+        cml_minus_hmc = subtract(close_minus_low, high_minus_close)
+        mfm = divide(cml_minus_hmc, high_minus_low)
         # return money flow multiplier by volume
-        ad = nmultiply(mfm, volume_data)
+        ad = multiply(mfm, volume_data)
         sum = 0
         for i in range(0, len(ad)):
             ad[i] = ad[i] + sum
@@ -55,9 +53,9 @@ class AD(Indicator):
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
         historic_data = self._data_for_symbol(symbol, self._num_periods, end_date, key=None)
-        high_data = [x[DAY_HIGH_STR] for x in historic_data]
-        low_data = [x[DAY_LOW_STR] for x in historic_data]
-        close_data = [x[LAST_TRADE_PRICE_ONLY_STR] for x in historic_data]
-        volume_data = [x[VOLUME_STR] for x in historic_data]
+        high_data = [x[PastQuoteDataKeys.HIGH] for x in historic_data]
+        low_data = [x[PastQuoteDataKeys.LOW] for x in historic_data]
+        close_data = [x[PastQuoteDataKeys.CLOSE] for x in historic_data]
+        volume_data = [x[PastQuoteDataKeys.VOLUME] for x in historic_data]
         return self.calculate(high_data, low_data, close_data, volume_data)
 
