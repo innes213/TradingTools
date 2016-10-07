@@ -14,5 +14,5 @@ indicators = [SMA(), EMA(), MACD(num_periods=2), OBV(), AD(), Aroon(), Stochasti
 for symbol in symbols:
     print '\nTechnical Indicators for %s\n' % symbol
     for i in indicators:
-        #todo: change Indicator.info() to return title string instead of using Indicator._itile
-        print '%s for %s = %s' % (i._title, symbol, str(i.calculate_for_symbol(symbol)))
+        title, _ = i.info()
+        print '%s for %s = %s' % (title, symbol, str(i.calculate_for_symbol(symbol)))

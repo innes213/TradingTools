@@ -27,8 +27,11 @@ class Indicator(object):
         pass
 
     def info(self):
-        print self._title
-        print 'For more info, see: %s' % self._description_url
+        """
+        Returns the full title and informational URL of the indicator
+        :return: title, url
+        """
+        return self._title, self._description_url
 
     def _data_for_symbol(self, symbol, num_periods, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
         return get_historic_data_for_symbol(symbol, num_periods, end_date, key)
