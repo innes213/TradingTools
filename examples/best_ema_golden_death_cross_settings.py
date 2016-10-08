@@ -1,5 +1,5 @@
 from tradingtools.equitydata import get_historic_data_for_symbol, PastQuoteDataKeys
-from tradingtools.technicals.strategies import ema_golden_death_cross_sweep
+from tradingtools.strategies import ema_golden_death_cross_sweep
 
 if __name__ == '__main__':
 
