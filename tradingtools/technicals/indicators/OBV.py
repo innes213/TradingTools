@@ -36,7 +36,7 @@ class OBV(Indicator):
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
         historic_data = self._data_for_symbol(symbol, self._num_periods + 1, end_date=end_date, key=None)
-        price_data = [x[PastQuoteDataKeys.CLOSE] for x in historic_data]
+        price_data = [x[PastQuoteDataKeys.ADJ_CLOSE] for x in historic_data]
         volume_data = [x[PastQuoteDataKeys.VOLUME] for x in historic_data]
         return self.calculate(price_data, volume_data)[-self._num_periods:]
 

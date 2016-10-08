@@ -82,9 +82,9 @@ class ADX(Indicator):
         :return: List of floats
         """
         data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 150, end_date, key=None)
-        high_data = [x[PastQuoteDataKeys.HIGH] for x in data]
-        low_data = [x[PastQuoteDataKeys.LOW] for x in data]
-        close_data = [x[PastQuoteDataKeys.CLOSE] for x in data]
+        high_data = [x[PastQuoteDataKeys.ADJ_HIGH] for x in data]
+        low_data = [x[PastQuoteDataKeys.ADJ_LOW] for x in data]
+        close_data = [x[PastQuoteDataKeys.ADJ_CLOSE] for x in data]
         adx, plus, minus = self.calculate(high_data, low_data, close_data)
         return adx[-self._num_periods:], plus[-self._num_periods:], minus[-self._num_periods:]
     

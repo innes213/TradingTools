@@ -53,9 +53,9 @@ class AD(Indicator):
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
         historic_data = self._data_for_symbol(symbol, self._num_periods, end_date, key=None)
-        high_data = [x[PastQuoteDataKeys.HIGH] for x in historic_data]
-        low_data = [x[PastQuoteDataKeys.LOW] for x in historic_data]
-        close_data = [x[PastQuoteDataKeys.CLOSE] for x in historic_data]
+        high_data = [x[PastQuoteDataKeys.ADJ_HIGH] for x in historic_data]
+        low_data = [x[PastQuoteDataKeys.ADJ_LOW] for x in historic_data]
+        close_data = [x[PastQuoteDataKeys.ADJ_CLOSE] for x in historic_data]
         volume_data = [x[PastQuoteDataKeys.VOLUME] for x in historic_data]
         return self.calculate(high_data, low_data, close_data, volume_data)
 

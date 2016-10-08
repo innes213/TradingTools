@@ -54,7 +54,7 @@ class MACD(Indicator):
         histogram = subtract(macd, signal)
         return macd, signal, histogram
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
+    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.ADJ_CLOSE):
         """
         MACD (macd, signal and histogram) for a given symbol
         :param symbol: String Stock symbol for which to calculate MACD

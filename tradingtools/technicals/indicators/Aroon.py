@@ -58,6 +58,6 @@ class Aroon(Indicator):
         :return: Tuple consisting of 2 lists (aroon_up, aroon_down)
         """
         data = self._data_for_symbol(symbol, self._num_periods + self._window_size, end_date, key=None)
-        high_data = [x[PastQuoteDataKeys.HIGH] for x in data]
-        low_data = [x[PastQuoteDataKeys.LOW] for x in data]
+        high_data = [x[PastQuoteDataKeys.ADJ_HIGH] for x in data]
+        low_data = [x[PastQuoteDataKeys.ADJ_LOW] for x in data]
         return self.calculate(high_data, low_data)

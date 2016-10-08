@@ -62,5 +62,5 @@ class RSI(Indicator):
         return rsi
 
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
-        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 250, end_date, key=PastQuoteDataKeys.CLOSE)
+        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 250, end_date, key=PastQuoteDataKeys.ADJ_CLOSE)
         return self.calculate(subtract(data[1:], data[0:-1]))[-self._num_periods:]

@@ -50,7 +50,7 @@ class EMA(Indicator):
             i = i + 1
         return ema_data
 
-    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
+    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.ADJ_CLOSE):
         """
         Calculates the EMA for a given symbol for a number of days across a window
         :param symbol: String Stock symbol for which to calculate EMA

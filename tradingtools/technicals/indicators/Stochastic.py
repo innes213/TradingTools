@@ -17,7 +17,7 @@ class Stochastic(Indicator):
         self._num_periods = num_periods
         self._smoothing_window_size = smoothing_window_size
 
-    _title = 'Stochastic Oscillator'
+    _title = 'Stochastic Oscillator (Fast)'
     _description_url = 'http://www.investopedia.com/terms/s/stochasticoscillator.asp'
 
     def window(self, window_size=None, smoothing_window_size=None):
@@ -47,8 +47,8 @@ class Stochastic(Indicator):
             print 'Error: Stochastic data length mismatch'
             return []
         k = []
-        for n in range(0, len(high_data) - self._window_size):
-            close = close_data[n+self._window_size]
+        for n in range(len(high_data) - self._window_size + 1):
+            close = close_data[n+self._window_size - 1]
             high = max(high_data[n:n+self._window_size])
             low = min(low_data[n:n+self._window_size])
             k.append(100 * (close - low) / (high - low))
@@ -61,9 +61,9 @@ class Stochastic(Indicator):
         :param end_date:
         :return: Tuple of %k and %D List of Floats
         """
-        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + self._smoothing_window_size - 1, end_date, key=None)
-        high_data = [x[PastQuoteDataKeys.HIGH] for x in data]
-        low_data = [x[PastQuoteDataKeys.LOW] for x in data]
-        close_data = [x[PastQuoteDataKeys.CLOSE] for x in data]
+        data = self._data_for_symbol(symbol, self._num_periods + self._window_size + self._smoothing_window_size - 2, end_date, key=None)
+        high_data = [x[PastQuoteDataKeys.ADJ_HIGH] for x in data]
+        low_data = [x[PastQuoteDataKeys.ADJ_LOW] for x in data]
+        close_data = [x[PastQuoteDataKeys.ADJ_CLOSE] for x in data]
         k, d = self.calculate(high_data, low_data, close_data)
         return k[-self._num_periods:], d[-self._num_periods:]

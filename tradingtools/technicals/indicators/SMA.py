@@ -30,12 +30,14 @@ class SMA(Indicator):
         :param historic_data: List of floats representing past data (price, volume, etc)
         :return: List of floats representing the averages
         """
+        if self._window_size == 1:
+            return historic_data
         if len(historic_data) < self._window_size:
             print 'Window size exceeds length of data!'
             return []
         return [mean(historic_data[n:n+self._window_size]) for n in range(len(historic_data) - self._window_size + 1)]
 
-def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
+def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.ADJ_CLOSE):
         """
         Simple moving average across day_range days for numdays
         :param symbol: String Stock symbol for which to calculare SMA

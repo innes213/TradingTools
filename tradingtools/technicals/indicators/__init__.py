@@ -33,7 +33,7 @@ class Indicator(object):
         """
         return self._title, self._description_url
 
-    def _data_for_symbol(self, symbol, num_periods, end_date=datetime.today(), key=PastQuoteDataKeys.CLOSE):
+    def _data_for_symbol(self, symbol, num_periods, end_date=datetime.today(), key=PastQuoteDataKeys.ADJ_CLOSE):
         return get_historic_data_for_symbol(symbol, num_periods, end_date, key)
 
 
