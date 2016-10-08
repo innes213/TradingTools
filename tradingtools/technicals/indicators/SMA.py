@@ -37,7 +37,7 @@ class SMA(Indicator):
             return []
         return [mean(historic_data[n:n+self._window_size]) for n in range(len(historic_data) - self._window_size + 1)]
 
-def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.ADJ_CLOSE):
+    def calculate_for_symbol(self, symbol, end_date=datetime.today(), key=PastQuoteDataKeys.ADJ_CLOSE):
         """
         Simple moving average across day_range days for numdays
         :param symbol: String Stock symbol for which to calculare SMA
