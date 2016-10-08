@@ -3,7 +3,7 @@ from tradingtools.technicals.strategies import ema_golden_death_cross_sweep
 
 if __name__ == '__main__':
 
-    #symbols = ['SPY'] #, 'MDY', 'SLY', 'GLD', 'SLV', 'AAPL', 'P', 'GOOG', 'DLB']
+    # symbols = ['SPY'] #, 'MDY', 'SLY', 'GLD', 'SLV', 'AAPL', 'P', 'GOOG', 'DLB']
     # symbols = get_symbol_list('sp500')[-10:]
     symbols = ['SPY', 'MDY', 'SLY', 'GLD', 'SLV']
     for symbol in symbols:
@@ -12,6 +12,7 @@ if __name__ == '__main__':
         close_data = [x[PastQuoteDataKeys.ADJ_CLOSE] for x in data]
         data = [] # get rid of data we no longer need!
 
+        # todo: this is terrible. Only need to get EMAs for largest possible period THEN window the results
         periods = [10, 20, 50, 100, 250, 500, 1000, 2000]
         #periods = [10]
         for num_periods in periods:
