@@ -4,13 +4,17 @@ from tradingtools.technicals.indicators.SMA import SMA
 from tradingtools.analysis import zero_crossings
 from numpy import abs, max, min, multiply, sign, subtract, sum, zeros_like
 
+class TradeDelayPeriod:
+    TRADE_ON_CLOSE = 0  # trade on the current day close
+    TRADE_ON_OPEN = 1  # trade on the following day open
+
 def model_trades(price_data, trade_vector):
     """
     Returns the cash value given price data and a list of of asset quantities to trade
     as well as the number of transactions (sum of buy and sells)
     :param price_data: array of floats representing the price of an asset
     :param trade_vector: array of ints representing the number of
-    :return:
+    :return: profit, trade_count
     """
     if price_data is None or trade_vector is None:
         raise ValueError("One or more arrays is None")
@@ -86,15 +90,18 @@ def sma_golden_death_cross_sweep(open_data, close_data, num_periods, max_window=
 
     return trials
 
-def get_sma_crossing_trade_signals(close_data, window_size):
+def get_sma_crossing_trade_signals(close_data, window_size, trade_delay=1):
     sma = SMA(window_size=window_size).calculate(close_data)
-    delta = subtract(close_data[window_size-1:],sma)
+    delta = subtract(close_data[-len(sma):],sma)
     # find zero-crossings, where price crosses sma
-    zcd = zero_crossings(delta[:-1])
+    if trade_delay == 0:
+        zcd = zero_crossings(delta)
+    else:
+        zcd = zero_crossings(delta[:-trade_delay])
     trade_vector = zeros_like(delta)
-    # buy/sell on next period after signal, 1 share per trade
+    # buy/sell trade_delay after signal, 1 share per trade
     for z in zcd:
-        trade_vector[z+1] = sign(delta[z])
+        trade_vector[z+trade_delay] = sign(delta[z])
     return trade_vector
 
 def get_macd_crossing_trade_signals(close_data, slow_window, fast_window, signal_window, num_periods):
