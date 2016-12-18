@@ -1,5 +1,4 @@
-from ...utils import get_historic_data_for_symbol
-from ...equitydata import PastQuoteDataKeys
+from ...utils.equitydata import get_historic_data_for_symbol, PastQuoteDataKeys
 
 from datetime import datetime
 

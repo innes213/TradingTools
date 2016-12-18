@@ -1,17 +1,15 @@
-from tradingtools.utils import FinSymbolsKeys, get_symbol_list, get_symbols_by_key, SymbolList
-from pyhoofinance.quotedata import get_quotes
-from pyhoofinance.defs import *
+from tradingtools.utils.equitydata import FinSymbolsKeys, get_symbol_list, get_data_for_symbols as get_quotes, get_symbols_by_key_from_source, QuoteDataKeys, SymbolList
 
 def sp500_market_cap_by_category(category):
     quote_data = {}
 
     # fromat S&P 500 data as a single dictionary
-    for q in get_quotes(get_symbol_list(SymbolList.SP500), [MARKET_CAPITALIZATION_STR]):
-        quote_data[q[SYMBOL_STR]] = q[MARKET_CAPITALIZATION_STR]
+    for q in get_quotes(get_symbol_list(SymbolList.SP500), [QuoteDataKeys.MARKET_CAP]):
+        quote_data[q[QuoteDataKeys.SYMBOL]] = q[QuoteDataKeys.MARKET_CAP]
 
     # build list of catebory: market cap
     out = []
-    for group,symbols in get_symbols_by_key(category, SymbolList.SP500):
+    for group,symbols in get_symbols_by_key_from_source(category, SymbolList.SP500):
         # add up the market caps for each symbol in a group
         sum = 0
         for s in symbols:

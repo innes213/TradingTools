@@ -1,5 +1,5 @@
 from tradingtools.utils.equitydata import get_historic_data_for_symbol, PastQuoteDataKeys
-from tradingtools.strategies import ema_golden_death_cross_sweep
+from tradingtools.strategies import sma_golden_death_cross_sweep
 
 if __name__ == '__main__':
 
@@ -18,7 +18,7 @@ if __name__ == '__main__':
         #periods = [10]
         for num_periods in periods:
             if len(close_data) > num_periods:
-                results = ema_golden_death_cross_sweep(open_data, close_data, num_periods)
+                results = sma_golden_death_cross_sweep(open_data, close_data, num_periods)
                 results.sort(key=lambda k: k[0], reverse=True)
                 buy_price = open_data[-num_periods]
                 sell_price = open_data[-1]

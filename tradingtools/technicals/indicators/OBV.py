@@ -1,5 +1,5 @@
 from ..indicators import Indicator
-from ...equitydata import PastQuoteDataKeys
+from tradingtools.utils.equitydata import PastQuoteDataKeys
 
 from datetime import datetime
 

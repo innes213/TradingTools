@@ -1,9 +1,8 @@
-from  ..indicators import Indicator
-from ...equitydata import PastQuoteDataKeys
-
+from datetime import datetime
 from numpy import subtract, sum
 
-from datetime import datetime
+from tradingtools.utils.equitydata import PastQuoteDataKeys
+from  ..indicators import Indicator
 
 WINDOW_SIZE = 14
 NUM_PERIODS = 1

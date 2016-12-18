@@ -17,6 +17,9 @@ class QuoteDataKeys:
     LOW = DAY_LOW_STR
     VOLUME = VOLUME_STR
     DATE = LAST_TRADE_DATE_STR
+    SYMBOL = SYMBOL_STR
+    NAME = NAME_STR
+    MARKET_CAP = MARKET_CAPITALIZATION_STR
 
 class PastQuoteDataKeys:
     OPEN = OPEN_STR
@@ -65,6 +68,8 @@ def get_symbols_by_key_from_source(key, source=SymbolList.SP500):
                 new_key = 'United Kingdom'
             elif new_key == 'Netherlands':
                 new_key = 'Kingdom of the Netherlands'
+            elif new_key == 'NY':
+                new_key = 'New York'
         else:
             new_key = s[key]
         if new_key not in key_set:

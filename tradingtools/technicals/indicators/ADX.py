@@ -1,5 +1,5 @@
 from ..indicators import Indicator
-from ...equitydata import PastQuoteDataKeys
+from tradingtools.utils.equitydata import PastQuoteDataKeys
 
 from numpy import abs, add, divide, max, mean, multiply, subtract, sum
 

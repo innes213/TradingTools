@@ -1,10 +1,9 @@
-from .EMA import EMA
-from ..indicators import Indicator
-from ...equitydata import PastQuoteDataKeys
-
+from datetime import datetime
 from numpy import subtract
 
-from datetime import datetime
+from tradingtools.utils.equitydata import PastQuoteDataKeys
+from .EMA import EMA
+from ..indicators import Indicator
 
 SLOW_WINDOW_SIZE = 26
 FAST_WINDOW_SIZE = 12

@@ -1,6 +1,6 @@
 from ..indicators import Indicator
 from ..indicators.SMA import SMA
-from ...equitydata import PastQuoteDataKeys
+from tradingtools.utils.equitydata import PastQuoteDataKeys
 
 from numpy import max, min
 
