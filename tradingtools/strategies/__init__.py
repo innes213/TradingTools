@@ -89,7 +89,7 @@ def sma_golden_death_cross_sweep(open_data, close_data, num_periods, max_window=
             trials.append((cash, slow_window, fast_window, count))
 
     return trials
-
+# TODO: update all other strategy modeling to look like this:
 def get_sma_crossing_trade_signals(close_data, window_size, trade_delay=1):
     sma = SMA(window_size=window_size).calculate(close_data)
     delta = subtract(close_data[-len(sma):],sma)

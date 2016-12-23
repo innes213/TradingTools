@@ -2,6 +2,11 @@ from ...utils.equitydata import get_historic_data_for_symbol, PastQuoteDataKeys
 
 from datetime import datetime
 
+class SignalTypes:
+    BULLISH = 'bullish'
+    BEARISH = 'bearish'
+    NEUTRAL = 'neutral'
+
 class Indicator(object):
 
     def __init__(self):
@@ -25,6 +30,12 @@ class Indicator(object):
         # Override with retrieval of stock data and call self.calculate
         pass
 
+    def analyze:
+        pass
+
+    def analyze_for_symbol:
+        pass
+    
     def info(self):
         """
         Returns the full title and informational URL of the indicator
