@@ -7,6 +7,11 @@ class SignalTypes:
     BEARISH = 'bearish'
     NEUTRAL = 'neutral'
 
+class SignalStrengthTypes:
+    WEAK = 'weak'
+    MODEST = 'modest'
+    STRONG = 'strong'
+
 class Indicator(object):
 
     def __init__(self):
@@ -30,12 +35,12 @@ class Indicator(object):
         # Override with retrieval of stock data and call self.calculate
         pass
 
-    def analyze:
+    def analyze(self):
         pass
 
-    def analyze_for_symbol:
+    def analyze_for_symbol(self):
         pass
-    
+
     def info(self):
         """
         Returns the full title and informational URL of the indicator
