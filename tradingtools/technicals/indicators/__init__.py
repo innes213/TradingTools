@@ -6,11 +6,18 @@ class SignalTypes:
     BULLISH = 'bullish'
     BEARISH = 'bearish'
     NEUTRAL = 'neutral'
+    OVERBOUGHT = 'overbought'
+    OVERSOLD = 'oversold'
 
 class SignalStrengthTypes:
+    NA = 'n/a'
     WEAK = 'weak'
     MODEST = 'modest'
     STRONG = 'strong'
+
+class TrendAgeTypes:
+    NEW = 'new'
+    OLD = 'old'
 
 class Indicator(object):
 
