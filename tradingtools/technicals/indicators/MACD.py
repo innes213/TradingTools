@@ -1,14 +1,15 @@
 from datetime import datetime
-from numpy import subtract
+from numpy import abs, subtract
 
 from tradingtools.utils.equitydata import PastQuoteDataKeys
 from .EMA import EMA
-from ..indicators import Indicator
+from ..indicators import Indicator, SignalStrengthTypes, SignalTypes
+from ...analysis import trend_length_and_slope
 
 SLOW_WINDOW_SIZE = 26
 FAST_WINDOW_SIZE = 12
 SIGNAL_WINDOW_SIZE = 9
-NUM_PERIODS = 1
+NUM_PERIODS = 10
 
 class MACD(Indicator):
 
@@ -64,3 +65,28 @@ class MACD(Indicator):
         historic_data = self._data_for_symbol(symbol, 5 * self._slow_window_size + self._num_periods, end_date, key)
         macd, signal, histogram = self.calculate(historic_data)
         return macd[-self._num_periods:], signal[-self._num_periods:], histogram[-self._num_periods:]
+
+    def analyze(self, divergence):
+        _, slope = trend_length_and_slope(divergence)
+        signal_type = SignalTypes.NEUTRAL
+        signal_strength = SignalStrengthTypes.NA
+        if slope > 0 and divergence[-1] > 0:
+            signal_type = SignalTypes.BULLISH
+        elif slope < 0 and divergence[-1] < 0:
+            signal_type = SignalTypes.BEARISH
+        # todo: look at max, mean, and stdv of divergence
+
+        if signal_type != SignalTypes.NEUTRAL:
+            magnitude = abs(slope)
+            if magnitude > 85.0:
+                signal_strength = SignalStrengthTypes.STRONG
+            elif magnitude > 30.0:
+                signal_strength = SignalStrengthTypes.MODEST
+            else:
+                signal_strength = SignalStrengthTypes.WEAK
+
+        return dict(signal_strength=signal_strength, signal_type=signal_type, slope=slope, divergence=divergence[-1])
+
+    def analyze_for_symbol(self, symbol, end_date=datetime.today()):
+        _, _, divergence = self.calculate_for_symbol(symbol, end_date)
+        return self.analyze(divergence)
