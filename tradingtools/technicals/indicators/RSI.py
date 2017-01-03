@@ -2,10 +2,10 @@ from datetime import datetime
 from numpy import subtract, sum
 
 from tradingtools.utils.equitydata import PastQuoteDataKeys
-from  ..indicators import Indicator
+from ..indicators import Indicator, SignalStrengthTypes, SignalTypes
 
 WINDOW_SIZE = 14
-NUM_PERIODS = 1
+NUM_PERIODS = 20
 
 class RSI(Indicator):
 
@@ -63,3 +63,17 @@ class RSI(Indicator):
     def calculate_for_symbol(self, symbol, end_date=datetime.today()):
         data = self._data_for_symbol(symbol, self._num_periods + self._window_size + 250, end_date, key=PastQuoteDataKeys.ADJ_CLOSE)
         return self.calculate(subtract(data[1:], data[0:-1]))[-self._num_periods:]
+
+    def analyze(self, rsi_data):
+        # todo: add more comprehensive analysis, specifically failure swings
+        signal_type = SignalTypes.NEUTRAL
+        signal_strength = SignalStrengthTypes.NA
+        if rsi_data[-1] > 70:
+            signal_type = SignalTypes.OVERBOUGHT
+        elif rsi_data[-1] < 30:
+            signal_type = SignalTypes.OVERSOLD
+        return dict(signal_strength=signal_strength, signal_type=signal_type, rsi=rsi_data[-1])
+
+    def analyze_for_symbol(self, symbol, end_date=datetime.today()):
+        return self.analyze(self.calculate_for_symbol(symbol, end_date))
+
