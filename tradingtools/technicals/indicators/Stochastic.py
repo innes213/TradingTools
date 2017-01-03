@@ -1,4 +1,4 @@
-from ..indicators import Indicator
+from ..indicators import Indicator, SignalStrengthTypes, SignalTypes
 from ..indicators.SMA import SMA
 from tradingtools.utils.equitydata import PastQuoteDataKeys
 
@@ -8,7 +8,7 @@ from datetime import datetime
 
 WINDOW_SIZE = 14
 SMOOTHING_WINDOW_SIZE = 3
-NUM_PERIODS = 1
+NUM_PERIODS = 20
 
 class Stochastic(Indicator):
 
@@ -67,3 +67,17 @@ class Stochastic(Indicator):
         close_data = [x[PastQuoteDataKeys.ADJ_CLOSE] for x in data]
         k, d = self.calculate(high_data, low_data, close_data)
         return k[-self._num_periods:], d[-self._num_periods:]
+
+    def analyze(self, k, d):
+        signal_type = SignalTypes.NEUTRAL
+        signal_strength = SignalStrengthTypes.NA
+        if k[-1] > 80 and d[-1] > 80:
+            signal_type = SignalTypes.OVERBOUGHT
+        elif k[-1] < 20 and d[-1] < 20:
+            signal_type = SignalTypes.OVERSOLD
+        return dict(signal_strength=signal_strength, signal_type=signal_type, k=k[-1], d= d[-1])
+    
+    def analyze_for_symbol(self, symbol, end_date=datetime.today()):
+        k, d = self.calculate_for_symbol(symbol, end_date)
+        return self.analyze(k, d)
+        
