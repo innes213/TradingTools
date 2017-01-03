@@ -76,7 +76,6 @@ class MACD(Indicator):
             signal_type = SignalTypes.BEARISH
         # todo: look at max, mean, and stdv of divergence
         # todo: strength should be based on acceleration/deceleration
-
         if signal_type != SignalTypes.NEUTRAL:
             magnitude = abs(slope)
             if magnitude > 85.0:
