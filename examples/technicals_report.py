@@ -10,10 +10,10 @@ from tradingtools.technicals.indicators.SMA import SMA
 from tradingtools.technicals.indicators.Stochastic import Stochastic
 
 symbols = ['SPY', 'SDS', 'GLD', 'AAPL', 'P', 'FB', 'ONVO', 'DLB']
-indicators = [SMA(), EMA(), MACD(num_periods=2), OBV(), AD(), Aroon(), Stochastic(), RSI(), ADX(), Bollinger()]
+indicators = [SMA(), EMA(), MACD(), OBV(), AD(), Aroon(), Stochastic(), RSI(), ADX()]
 
 for symbol in symbols:
     print '\nTechnical Indicators for %s\n' % symbol
     for i in indicators:
         title, _ = i.info()
-        print '%s for %s = %s' % (title, symbol, str(i.calculate_for_symbol(symbol)))
+        print '%s for %s = %s' % (title, symbol, str(i.analyze_for_symbol(symbol)['signal_type']))

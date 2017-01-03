@@ -88,11 +88,7 @@ class AD(Indicator):
             elif ad_slope < -TREND_SLOPE_THRESHHOLD:
                 ad_signal = SignalTypes.BEARISH
 
-        result = { 'signal':ad_signal,
-                  'trend_length':ad_trend_length,
-                  'trend_slope':ad_slope }
-
-        return result
+        return dict(signal_type=ad_signal, trend_length=ad_trend_length, trend_slope=ad_slope)
 
     def analyze_for_symbol(self, symbol, end_date=datetime.today()):
         historic_data = self._data_for_symbol(symbol, self._num_periods, end_date, key=None)
